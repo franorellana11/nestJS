@@ -20,6 +20,6 @@ export class AppController {
     @Param('productId') productId: string,
     @Param('id') id: string,
   ) {
-    return `Categorie ${id} = ${productId}`;
+    return `Categories ${id} = ${productId}`;
   }
 }
