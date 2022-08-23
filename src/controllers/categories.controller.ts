@@ -8,37 +8,29 @@ import {
   Put,
 } from '@nestjs/common';
 
+import { CategoriesService } from '../services/categories.service';
+
 @Controller('categories')
 export class CategoriesController {
+  constructor(private categorieService: CategoriesService) {}
   @Get()
   categories() {
-    return `<h1> Endpoint Categories </h1>`;
+    return this.categorieService.findAll();
   }
 
-  @Get(':id/products/:productId')
-  getCategoriesOne(
-    @Param('productId') productId: string,
-    @Param('id') id: string,
-  ) {
-    return {
-      message: `Categories ${id} = ${productId}`,
-    };
+  @Get(':id')
+  getCategoriesOne(@Param('id') id: number) {
+    return this.categorieService.findOne(+id);
   }
 
   @Post()
   create(@Body() payload: any) {
-    return {
-      message: 'CREATE CATEGORIE',
-      payload,
-    };
+    return this.categorieService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id') id: number, @Body() payload: any) {
-    return {
-      id,
-      payload,
-    };
+    return this.categorieService.update(+id, payload);
   }
 
   @Delete(':id')

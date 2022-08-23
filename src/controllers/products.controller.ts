@@ -9,11 +9,15 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { ProductsService } from '../services/products.service';
+
 @Controller('products')
 export class ProductsController {
+  constructor(private productsService: ProductsService) {}
+
   @Get()
   products() {
-    return `<h1> Endpoint Products </h1>`;
+    return this.productsService.findAll();
   }
 
   @Get()
@@ -29,25 +33,17 @@ export class ProductsController {
 
   @Get(':productId')
   getProductOne(@Param('productId') productId: string) {
-    return {
-      message: `product ${productId}`,
-    };
+    return this.productsService.findOne(+productId);
   }
 
   @Post()
   create(@Body() payload: any) {
-    return {
-      message: 'CREATE PRODUCTS',
-      payload,
-    };
+    return this.productsService.create(payload);
   }
 
   @Put(':id')
   update(@Param('id') id: number, @Body() payload: any) {
-    return {
-      id,
-      payload,
-    };
+    return this.productsService.update(+id, payload);
   }
 
   @Delete(':id')
