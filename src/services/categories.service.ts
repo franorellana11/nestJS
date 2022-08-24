@@ -3,6 +3,7 @@ import {
   NotAcceptableException,
   NotFoundException,
 } from '@nestjs/common';
+import { CreateCategorietDto } from 'src/dto/categories.dto';
 
 import { Categorie } from '../entities/categorie.entiti';
 
@@ -30,7 +31,7 @@ export class CategoriesService {
     return categorie;
   }
 
-  create(payload: any) {
+  create(payload: CreateCategorietDto) {
     this.counterId = this.counterId + 1;
     const newCategorie = {
       id: this.counterId,
