@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { Categorie } from '../entities/categorie.entiti';
 
@@ -19,7 +23,11 @@ export class CategoriesService {
   }
 
   findOne(id) {
-    return this.categorie.find((item) => item.id === id);
+    const categorie = this.categorie.find((item) => item.id === id);
+    if (!categorie) {
+      throw new NotAcceptableException(`Categorie not exist`);
+    }
+    return categorie;
   }
 
   create(payload: any) {
@@ -42,6 +50,17 @@ export class CategoriesService {
       };
       return this.categorie[index];
     }
-    return 'Algo fallo';
+    return new NotAcceptableException('Random Error');
+  }
+
+  remove(id: number) {
+    const index = this.categorie.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Categorie not exist`);
+    }
+    this.categorie.splice(index, 1);
+    return {
+      message: 'DELETE CATEG',
+    };
   }
 }

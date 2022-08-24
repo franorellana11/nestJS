@@ -35,6 +35,6 @@ export class CategoriesController {
 
   @Delete(':id')
   delete(@Param('id') id: number) {
-    return id;
+    return this.categorieService.remove(+id);
   }
 }
