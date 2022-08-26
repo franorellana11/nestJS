@@ -14,11 +14,12 @@ export class ProductsService {
   private products: Product[] = [
     {
       id: 1,
-      name: 'Product One',
-      description: 'Desccript 10',
-      price: 1000,
+      name: 'Notbook Acer Aspire One',
+      description:
+        'Se trata de una computadora portátil con la forma y tamaño de una libreta escolar tamaño profesional, que contiene los mismos componentes que una de escritorio, pero con ciertas modificaciones en sus dimensiones, por lo que resulta un gabinete muy delgado y con la pantalla, teclado y ratón integrados.',
+      price: 10000,
       image: '',
-      stock: 1555,
+      stock: 10,
     },
   ];
 

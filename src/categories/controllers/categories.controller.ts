@@ -25,6 +25,11 @@ export class CategoriesController {
     return this.categorieService.findOne(id);
   }
 
+  @Get(':id/products')
+  getCategoriesWithProducts(@Param('id', ParseIntPipe) id: number) {
+    return this.categorieService.getProductsByCategories(id);
+  }
+
   @Post()
   create(@Body() payload: CreateCategorietDto) {
     return this.categorieService.create(payload);

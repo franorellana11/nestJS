@@ -5,16 +5,19 @@ import {
 } from '@nestjs/common';
 import { CreateCategorietDto } from 'src/categories/dto/categories.dto';
 
+import { ProductsService } from '../../products/services/products.service';
+
 import { Categorie } from '../entities/categorie.entiti';
 
 @Injectable()
 export class CategoriesService {
+  constructor(private productsService: ProductsService) {}
   private counterId = 1;
   private categorie: Categorie[] = [
     {
       id: 1,
-      name: 'Categorie ONE',
-      description: 'Desccript ONE',
+      name: 'Notbook',
+      description: 'Espacio de computadoras',
       image: '',
     },
   ];
@@ -62,6 +65,17 @@ export class CategoriesService {
     this.categorie.splice(index, 1);
     return {
       message: 'DELETE CATEG',
+    };
+  }
+
+  getProductsByCategories(id) {
+    const categorie = this.categorie.find((item) => item.id === id);
+    if (!categorie) {
+      throw new NotAcceptableException(`Categorie not exist`);
+    }
+    return {
+      Categorie: this.findOne(id),
+      products: this.productsService.findAll(),
     };
   }
 }
